@@ -7,6 +7,8 @@ import os
 import random
 import time
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
 
 
@@ -26,8 +28,8 @@ def login():
     driver.get(url)
     driver.maximize_window()
 
-    email = 'shubhamsharma@gmail.com'
-    password = 'password'
+    email = os.environ.get('ACPR_USERNAME')
+    password = os.environ.get('ACPR_PASSWORD')
 
     email_field = driver.find_element(By.XPATH, '//*[@id="exampleInputEmail1"]')
     email_field.send_keys(email)
