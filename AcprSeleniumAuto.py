@@ -6,9 +6,19 @@ from selenium.webdriver.common.by import By
 import os
 import random
 import time
+from datetime import datetime
+
 
 
 driver = webdriver.Chrome("/usr/bin/chromedriver")
+timestamp = datetime.now()
+ss_path = os.path.join(os.getcwd(), 'screenshots', f'ACPR_test_{timestamp}')
+os.makedirs(ss_path, exist_ok = True)
+
+
+def screenshot():
+    filename = f'ss_{datetime.now().strftime("%H:%M:%S")}.png'
+    driver.save_screenshot(os.path.join(ss_path, filename))
 
 
 def login():
@@ -27,7 +37,9 @@ def login():
     time.sleep(1)
     driver.find_element(By.XPATH,'//*[@id="agreecheckbox"]').click()
     time.sleep(1)
+    screenshot()
     driver.find_element(By.XPATH,'//*[@id="loginbtn"]').click()
+    screenshot()
 
     title = driver.title.casefold()
     try:
@@ -50,13 +62,18 @@ def upload_file():
     description.send_keys(random_msg)
     time.sleep(1)
     submit = driver.find_element(By.XPATH, '//*[@id="waitDisBtn"]')
+    screenshot()
     submit.click()
+
+    
+
+
 
 
 
 login()
 time.sleep(2)
 upload_file()
-
+driver.quit()
 
 
