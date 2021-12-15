@@ -64,6 +64,7 @@ def upload_file():
     submit = driver.find_element(By.XPATH, '//*[@id="waitDisBtn"]')
     screenshot()
     submit.click()
+    
 
 def download():
     save = driver.find_element(By.XPATH, '//*[@id="docstable"]/tr[1]/td[6]/a')
@@ -75,7 +76,17 @@ def download():
         print('Not a valid link')
 
 
-
+def logout():
+    try:
+        driver.find_element(By.XPATH, '/html/body/div[2]/div/span').click()
+    except:
+        pass
+    time.sleep(1)
+    options = driver.find_element(By.XPATH, '//*[@id="header"]/div[2]/div/div[2]/a')
+    options.click()
+    time.sleep(1)
+    driver.find_element(By.XPATH, '//*[@id="header"]/div[2]/div/div[2]/div/a[4]').click()
+    screenshot()
 
 
 if login():
@@ -83,6 +94,8 @@ if login():
     upload_file()
     time.sleep(2)
     download()
+    time.sleep(2)
+    logout()
     time.sleep(2)
     driver.quit()
 
