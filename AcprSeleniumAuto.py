@@ -65,15 +65,25 @@ def upload_file():
     screenshot()
     submit.click()
 
-    
+def download():
+    save = driver.find_element(By.XPATH, '//*[@id="docstable"]/tr[1]/td[6]/a')
+    lnk_txt = save.get_attribute('href')
+    if(lnk_txt.startswith('https')):
+        save.click()
+        screenshot()
+    else:
+        print('Not a valid link')
 
 
 
 
 
-login()
-time.sleep(2)
-upload_file()
-driver.quit()
+if login():
+    time.sleep(2)
+    upload_file()
+    time.sleep(2)
+    download()
+    time.sleep(2)
+    driver.quit()
 
 
